@@ -1,18 +1,17 @@
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
-import { Menu, X, Home, Briefcase, Code2, Cpu, GraduationCap, Mail } from 'lucide-react';
+import { useState } from "react";
+import { motion, AnimatePresence } from "motion/react";
+import { Menu, X, Home, Briefcase, Code2, Cpu, Mail } from "lucide-react";
 
 interface NavigationProps {
   activeSection: string;
 }
 
 const navItems = [
-  { id: 'home', label: 'Home', icon: Home },
-  { id: 'experience', label: 'Experience', icon: Briefcase },
-  { id: 'projects', label: 'Projects', icon: Code2 },
-  { id: 'skills', label: 'Skills', icon: Cpu },
-  { id: 'education', label: 'Education', icon: GraduationCap },
-  { id: 'contact', label: 'Contact', icon: Mail },
+  { id: "home", label: "Home", icon: Home },
+  { id: "experience", label: "Experience", icon: Briefcase },
+  { id: "projects", label: "Projects", icon: Code2 },
+  { id: "skills", label: "Skills", icon: Cpu },
+  { id: "contact", label: "Contact", icon: Mail },
 ];
 
 export function Navigation({ activeSection }: NavigationProps) {
@@ -21,7 +20,7 @@ export function Navigation({ activeSection }: NavigationProps) {
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+      element.scrollIntoView({ behavior: "smooth" });
       setIsOpen(false);
     }
   };
@@ -32,18 +31,19 @@ export function Navigation({ activeSection }: NavigationProps) {
       <motion.nav
         initial={{ y: -100 }}
         animate={{ y: 0 }}
+        transition={{ type: "spring", stiffness: 100, damping: 20 }}
         className="fixed top-0 left-0 right-0 z-50 hidden md:block"
       >
         <div className="max-w-7xl mx-auto px-6 py-6">
           <div className="flex justify-between items-center">
             <motion.div
               whileHover={{ scale: 1.05 }}
-              className="text-2xl font-bold bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent"
+              className="text-2xl font-bold bg-gradient-to-r from-orange-500 via-amber-500 to-yellow-500 bg-clip-text text-transparent"
             >
-              {'<SA />'}
+              {"<SA />"}
             </motion.div>
 
-            <div className="flex gap-1 bg-slate-900/50 backdrop-blur-xl border border-slate-800 rounded-full px-2 py-2">
+            <div className="flex gap-1 bg-slate-900/50 backdrop-blur-xl border border-slate-800 rounded-full px-2 py-2 shadow-lg shadow-orange-500/10">
               {navItems.map((item) => {
                 const Icon = item.icon;
                 const isActive = activeSection === item.id;
@@ -52,7 +52,9 @@ export function Navigation({ activeSection }: NavigationProps) {
                     key={item.id}
                     onClick={() => scrollToSection(item.id)}
                     className={`relative px-6 py-2 rounded-full transition-all duration-300 ${
-                      isActive ? 'text-white' : 'text-slate-400 hover:text-white'
+                      isActive
+                        ? "text-white"
+                        : "text-slate-400 hover:text-white"
                     }`}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
@@ -60,8 +62,12 @@ export function Navigation({ activeSection }: NavigationProps) {
                     {isActive && (
                       <motion.div
                         layoutId="activeSection"
-                        className="absolute inset-0 bg-gradient-to-r from-cyan-500 to-purple-500 rounded-full"
-                        transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                        className="absolute inset-0 bg-gradient-to-r from-orange-500 to-amber-500 rounded-full"
+                        transition={{
+                          type: "spring",
+                          stiffness: 380,
+                          damping: 30,
+                        }}
                       />
                     )}
                     <span className="relative z-10 flex items-center gap-2 text-sm font-medium">
@@ -74,12 +80,12 @@ export function Navigation({ activeSection }: NavigationProps) {
             </div>
 
             <motion.a
-              href="/resume.pdf"
+              href="#contact"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="px-6 py-2 bg-gradient-to-r from-cyan-500 to-purple-500 rounded-full text-white font-medium hover:shadow-lg hover:shadow-cyan-500/50 transition-shadow"
+              className="px-6 py-2 bg-gradient-to-r from-orange-500 to-amber-500 rounded-full text-white font-medium hover:shadow-lg hover:shadow-orange-500/50 transition-shadow"
             >
-              Resume
+              Hire Me
             </motion.a>
           </div>
         </div>
@@ -92,8 +98,8 @@ export function Navigation({ activeSection }: NavigationProps) {
         className="fixed top-0 left-0 right-0 z-50 md:hidden"
       >
         <div className="flex justify-between items-center px-6 py-4 bg-slate-900/80 backdrop-blur-xl border-b border-slate-800">
-          <div className="text-xl font-bold bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
-            {'<SA />'}
+          <div className="text-xl font-bold bg-gradient-to-r from-orange-500 to-amber-500 bg-clip-text text-transparent">
+            {"<SA />"}
           </div>
           <button
             onClick={() => setIsOpen(!isOpen)}
@@ -108,10 +114,10 @@ export function Navigation({ activeSection }: NavigationProps) {
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, x: '100%' }}
+            initial={{ opacity: 0, x: "100%" }}
             animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: '100%' }}
-            transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+            exit={{ opacity: 0, x: "100%" }}
+            transition={{ type: "spring", stiffness: 300, damping: 30 }}
             className="fixed inset-y-0 right-0 z-40 w-full bg-slate-900/95 backdrop-blur-xl md:hidden"
           >
             <div className="flex flex-col items-center justify-center h-full gap-6 px-6">
@@ -124,7 +130,7 @@ export function Navigation({ activeSection }: NavigationProps) {
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: index * 0.1 }}
                     onClick={() => scrollToSection(item.id)}
-                    className="flex items-center gap-4 text-2xl text-white hover:text-cyan-400 transition-colors"
+                    className="flex items-center gap-4 text-2xl text-white hover:text-orange-400 transition-colors"
                   >
                     <Icon className="w-6 h-6" />
                     {item.label}
@@ -151,8 +157,8 @@ export function Navigation({ activeSection }: NavigationProps) {
               <div
                 className={`w-3 h-3 rounded-full transition-all duration-300 ${
                   isActive
-                    ? 'bg-gradient-to-r from-cyan-400 to-purple-400 scale-125'
-                    : 'bg-slate-600 group-hover:bg-slate-400'
+                    ? "bg-gradient-to-r from-orange-500 to-amber-500 scale-125"
+                    : "bg-slate-600 group-hover:bg-slate-400"
                 }`}
               />
               <div className="absolute right-6 top-1/2 -translate-y-1/2 px-3 py-1 bg-slate-900 border border-slate-700 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">

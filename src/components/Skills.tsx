@@ -1,58 +1,65 @@
-import { motion } from 'motion/react';
-import { Code, Database, Wrench, Terminal, Layers, Sparkles } from 'lucide-react';
-import { useState } from 'react';
+import { motion } from "motion/react";
+import {
+  Code,
+  Database,
+  Wrench,
+  Terminal,
+  Layers,
+  Sparkles,
+} from "lucide-react";
+import { useState } from "react";
 
 const skillCategories = [
   {
-    title: 'Frontend',
+    title: "Frontend",
     icon: Code,
     skills: [
-      { name: 'React.js', level: 90 },
-      { name: 'TypeScript', level: 85 },
-      { name: 'JavaScript', level: 95 },
-      { name: 'Tailwind CSS', level: 90 },
-      { name: 'Angular', level: 75 },
-      { name: 'Redux', level: 80 },
-      { name: 'HTML5', level: 95 },
-      { name: 'CSS3', level: 90 },
+      { name: "React.js", level: 90 },
+      { name: "TypeScript", level: 85 },
+      { name: "JavaScript", level: 95 },
+      { name: "Tailwind CSS", level: 90 },
+      { name: "Angular", level: 75 },
+      { name: "Redux", level: 80 },
+      { name: "HTML5", level: 95 },
+      { name: "CSS3", level: 90 },
     ],
-    color: 'cyan',
-    gradient: 'from-cyan-400 to-blue-500',
+    color: "orange",
+    gradient: "from-orange-400 to-amber-500",
   },
   {
-    title: 'Backend',
+    title: "Backend",
     icon: Terminal,
     skills: [
-      { name: 'Node.js', level: 85 },
-      { name: 'Express.js', level: 85 },
-      { name: 'REST APIs', level: 90 },
-      { name: 'JWT Auth', level: 85 },
+      { name: "Node.js", level: 85 },
+      { name: "Express.js", level: 85 },
+      { name: "REST APIs", level: 90 },
+      { name: "JWT Auth", level: 85 },
     ],
-    color: 'purple',
-    gradient: 'from-purple-400 to-pink-500',
+    color: "amber",
+    gradient: "from-amber-400 to-yellow-500",
   },
   {
-    title: 'Databases',
+    title: "Databases",
     icon: Database,
     skills: [
-      { name: 'MongoDB', level: 85 },
-      { name: 'MySQL', level: 75 },
+      { name: "MongoDB", level: 85 },
+      { name: "MySQL", level: 75 },
     ],
-    color: 'pink',
-    gradient: 'from-pink-400 to-red-500',
+    color: "yellow",
+    gradient: "from-yellow-400 to-orange-500",
   },
   {
-    title: 'Tools & Others',
+    title: "Tools & Others",
     icon: Wrench,
     skills: [
-      { name: 'Git', level: 90 },
-      { name: 'GitHub', level: 90 },
-      { name: 'VS Code', level: 95 },
-      { name: 'Postman', level: 85 },
-      { name: 'Java', level: 70 },
+      { name: "Git", level: 90 },
+      { name: "GitHub", level: 90 },
+      { name: "VS Code", level: 95 },
+      { name: "Postman", level: 85 },
+      { name: "Java", level: 70 },
     ],
-    color: 'blue',
-    gradient: 'from-blue-400 to-indigo-500',
+    color: "orange",
+    gradient: "from-orange-400 to-red-500",
   },
 ];
 
@@ -63,7 +70,14 @@ export function Skills() {
     <section className="py-32 px-4 relative overflow-hidden">
       {/* Background */}
       <div className="absolute inset-0">
-        <div className="absolute top-1/3 left-0 w-96 h-96 bg-cyan-500/10 rounded-full filter blur-[128px]"></div>
+        <motion.div
+          animate={{
+            scale: [1, 1.2, 1],
+            opacity: [0.2, 0.3, 0.2],
+          }}
+          transition={{ duration: 8, repeat: Infinity }}
+          className="absolute top-1/3 left-0 w-96 h-96 bg-amber-500/20 rounded-full filter blur-[128px]"
+        ></motion.div>
       </div>
 
       <div className="max-w-7xl mx-auto relative z-10">
@@ -77,14 +91,16 @@ export function Skills() {
             initial={{ scale: 0 }}
             whileInView={{ scale: 1 }}
             viewport={{ once: true }}
-            className="inline-flex items-center gap-2 px-4 py-2 bg-cyan-500/10 border border-cyan-500/20 rounded-full mb-4"
+            className="inline-flex items-center gap-2 px-4 py-2 bg-orange-500/10 border border-orange-500/20 rounded-full mb-4"
           >
-            <Layers className="w-4 h-4 text-cyan-400" />
-            <span className="text-cyan-400 text-sm font-medium">Tech Stack</span>
+            <Layers className="w-4 h-4 text-orange-400" />
+            <span className="text-orange-400 text-sm font-medium">
+              Tech Stack
+            </span>
           </motion.div>
-          
+
           <h2 className="text-5xl md:text-6xl font-bold mb-4">
-            <span className="bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-orange-400 via-amber-400 to-yellow-400 bg-clip-text text-transparent">
               Skills & Expertise
             </span>
           </h2>
@@ -105,15 +121,15 @@ export function Skills() {
                 whileTap={{ scale: 0.95 }}
                 className={`relative px-6 py-3 rounded-xl font-medium transition-all duration-300 ${
                   selectedCategory === index
-                    ? 'text-white'
-                    : 'text-slate-400 hover:text-white'
+                    ? "text-white"
+                    : "text-slate-400 hover:text-white"
                 }`}
               >
                 {selectedCategory === index && (
                   <motion.div
                     layoutId="activeCategory"
                     className={`absolute inset-0 bg-gradient-to-r ${category.gradient} rounded-xl`}
-                    transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
                   />
                 )}
                 <span className="relative z-10 flex items-center gap-2">
@@ -145,7 +161,9 @@ export function Skills() {
                 >
                   <div className="flex justify-between items-center">
                     <span className="text-white font-medium">{skill.name}</span>
-                    <span className="text-cyan-400 font-mono text-sm">{skill.level}%</span>
+                    <span className="text-orange-400 font-mono text-sm">
+                      {skill.level}%
+                    </span>
                   </div>
                   <div className="relative h-2 bg-slate-700/50 rounded-full overflow-hidden">
                     <motion.div
@@ -155,8 +173,12 @@ export function Skills() {
                       className={`absolute inset-y-0 left-0 bg-gradient-to-r ${skillCategories[selectedCategory].gradient} rounded-full`}
                     >
                       <motion.div
-                        animate={{ x: ['-100%', '100%'] }}
-                        transition={{ duration: 1.5, repeat: Infinity, ease: 'linear' }}
+                        animate={{ x: ["-100%", "100%"] }}
+                        transition={{
+                          duration: 1.5,
+                          repeat: Infinity,
+                          ease: "linear",
+                        }}
                         className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent"
                       />
                     </motion.div>
@@ -180,9 +202,9 @@ export function Skills() {
               <span className="font-mono text-sm">All Technologies</span>
             </div>
           </div>
-          
+
           <div className="flex flex-wrap justify-center gap-3">
-            {skillCategories.flatMap(category => 
+            {skillCategories.flatMap((category) =>
               category.skills.map((skill, index) => (
                 <motion.div
                   key={`${category.title}-${skill.name}`}
@@ -191,7 +213,7 @@ export function Skills() {
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.02 }}
                   whileHover={{ scale: 1.1, y: -5 }}
-                  className={`px-4 py-2 bg-slate-800/50 border border-slate-700 hover:border-${category.color}-400/50 rounded-lg text-slate-300 hover:text-${category.color}-400 transition-all cursor-default`}
+                  className="px-4 py-2 bg-slate-800/50 border border-slate-700 hover:border-orange-400/50 rounded-lg text-slate-300 hover:text-orange-400 transition-all cursor-default"
                 >
                   <span className="font-mono text-sm">{skill.name}</span>
                 </motion.div>

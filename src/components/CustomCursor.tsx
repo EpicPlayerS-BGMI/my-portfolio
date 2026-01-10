@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import { motion } from 'motion/react';
+import { useEffect, useState } from "react";
+import { motion } from "motion/react";
 
 export function CustomCursor() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -12,41 +12,46 @@ export function CustomCursor() {
 
     const handleMouseOver = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
-      if (target.tagName === 'A' || target.tagName === 'BUTTON' || target.closest('a') || target.closest('button')) {
+      if (
+        target.tagName === "A" ||
+        target.tagName === "BUTTON" ||
+        target.closest("a") ||
+        target.closest("button")
+      ) {
         setIsHovering(true);
       } else {
         setIsHovering(false);
       }
     };
 
-    window.addEventListener('mousemove', handleMouseMove);
-    window.addEventListener('mouseover', handleMouseOver);
+    window.addEventListener("mousemove", handleMouseMove);
+    window.addEventListener("mouseover", handleMouseOver);
 
     return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('mouseover', handleMouseOver);
+      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("mouseover", handleMouseOver);
     };
   }, []);
 
   return (
     <>
       <motion.div
-        className="fixed top-0 left-0 w-4 h-4 rounded-full bg-cyan-400 mix-blend-difference pointer-events-none z-[9999]"
+        className="fixed top-0 left-0 w-4 h-4 rounded-full bg-amber-500 mix-blend-difference pointer-events-none z-[9999]"
         animate={{
           x: mousePosition.x - 8,
           y: mousePosition.y - 8,
           scale: isHovering ? 1.5 : 1,
         }}
-        transition={{ type: 'spring', stiffness: 500, damping: 28 }}
+        transition={{ type: "spring", stiffness: 500, damping: 28 }}
       />
       <motion.div
-        className="fixed top-0 left-0 w-8 h-8 rounded-full border-2 border-cyan-400/50 pointer-events-none z-[9999]"
+        className="fixed top-0 left-0 w-8 h-8 rounded-full border-2 border-orange-500/50 pointer-events-none z-[9999]"
         animate={{
           x: mousePosition.x - 16,
           y: mousePosition.y - 16,
           scale: isHovering ? 1.5 : 1,
         }}
-        transition={{ type: 'spring', stiffness: 150, damping: 15 }}
+        transition={{ type: "spring", stiffness: 150, damping: 15 }}
       />
     </>
   );
