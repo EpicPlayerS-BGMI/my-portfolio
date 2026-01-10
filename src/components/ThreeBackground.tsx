@@ -7,165 +7,145 @@ export function ThreeBackground() {
   useEffect(() => {
     if (!containerRef.current) return;
 
-    // Scene setup
+    const isMobile =
+      window.innerWidth < 768 ||
+      /Android|iPhone|iPad/i.test(navigator.userAgent);
+
+    // Scene
     const scene = new THREE.Scene();
+
     const camera = new THREE.PerspectiveCamera(
-      75,
+      70,
       window.innerWidth / window.innerHeight,
       0.1,
-      1000
+      100
     );
+    camera.position.z = 5;
+
+    // Renderer (IMPORTANT)
     const renderer = new THREE.WebGLRenderer({
       alpha: true,
-      antialias: true,
+      antialias: !isMobile, // ❗ disable AA on mobile
+      powerPreference: "low-power",
     });
 
     renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setPixelRatio(isMobile ? 1 : Math.min(window.devicePixelRatio, 1.5));
     containerRef.current.appendChild(renderer.domElement);
 
-    // Create particles
-    const particlesGeometry = new THREE.BufferGeometry();
-    const particlesCount = 1500;
-    const posArray = new Float32Array(particlesCount * 3);
+    // Particles (reduce count on mobile)
+    const particlesCount = isMobile ? 600 : 1200;
+    const positions = new Float32Array(particlesCount * 3);
 
-    for (let i = 0; i < particlesCount * 3; i++) {
-      posArray[i] = (Math.random() - 0.5) * 10;
+    for (let i = 0; i < positions.length; i++) {
+      positions[i] = (Math.random() - 0.5) * 10;
     }
 
+    const particlesGeometry = new THREE.BufferGeometry();
     particlesGeometry.setAttribute(
       "position",
-      new THREE.BufferAttribute(posArray, 3)
+      new THREE.BufferAttribute(positions, 3)
     );
 
     const particlesMaterial = new THREE.PointsMaterial({
-      size: 0.02,
-      color: new THREE.Color("#ff9500"),
+      size: isMobile ? 0.015 : 0.02,
+      color: "#ff9500",
       transparent: true,
-      opacity: 0.8,
-      blending: THREE.AdditiveBlending,
+      opacity: 0.7,
+      blending: THREE.NormalBlending, // ❗ cheaper than additive
     });
 
-    const particlesMesh = new THREE.Points(
-      particlesGeometry,
-      particlesMaterial
-    );
-    scene.add(particlesMesh);
+    const particles = new THREE.Points(particlesGeometry, particlesMaterial);
+    scene.add(particles);
 
-    // Create geometric shapes
+    // Geometries (lighter)
     const geometries = [
-      new THREE.TorusGeometry(0.7, 0.2, 16, 100),
+      new THREE.TorusGeometry(0.7, 0.18, 12, isMobile ? 24 : 48),
       new THREE.OctahedronGeometry(0.5, 0),
       new THREE.IcosahedronGeometry(0.5, 0),
     ];
 
-    const materials = [
-      new THREE.MeshStandardMaterial({
-        color: new THREE.Color("#ff9500"),
-        wireframe: true,
-        transparent: true,
-        opacity: 0.3,
-      }),
-      new THREE.MeshStandardMaterial({
-        color: new THREE.Color("#fbbf24"),
-        wireframe: true,
-        transparent: true,
-        opacity: 0.3,
-      }),
-      new THREE.MeshStandardMaterial({
-        color: new THREE.Color("#f59e0b"),
-        wireframe: true,
-        transparent: true,
-        opacity: 0.3,
-      }),
-    ];
+    const material = new THREE.MeshBasicMaterial({
+      color: "#ff9500",
+      wireframe: true,
+      transparent: true,
+      opacity: 0.25,
+    });
 
     const meshes: THREE.Mesh[] = [];
-    geometries.forEach((geometry, index) => {
-      const mesh = new THREE.Mesh(geometry, materials[index]);
-      mesh.position.set((index - 1) * 2.5, Math.sin(index) * 2, -5);
+
+    geometries.forEach((geo, i) => {
+      const mesh = new THREE.Mesh(geo, material);
+      mesh.position.set((i - 1) * 2.5, 0, -5);
       scene.add(mesh);
       meshes.push(mesh);
     });
 
-    // Lighting
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
-    scene.add(ambientLight);
+    // Light (simplified)
+    scene.add(new THREE.AmbientLight(0xffffff, 0.6));
 
-    const pointLight = new THREE.PointLight(0xff9500, 2);
-    pointLight.position.set(2, 3, 4);
-    scene.add(pointLight);
-
-    const pointLight2 = new THREE.PointLight(0xfbbf24, 1.5);
-    pointLight2.position.set(-2, -3, -4);
-    scene.add(pointLight2);
-
-    camera.position.z = 5;
-
-    // Mouse movement
+    // Mouse only on desktop
     let mouseX = 0;
     let mouseY = 0;
 
-    const handleMouseMove = (event: MouseEvent) => {
-      mouseX = (event.clientX / window.innerWidth) * 2 - 1;
-      mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
+    const onMouseMove = (e: MouseEvent) => {
+      mouseX = (e.clientX / window.innerWidth) * 2 - 1;
+      mouseY = -(e.clientY / window.innerHeight) * 2 + 1;
     };
 
-    window.addEventListener("mousemove", handleMouseMove);
+    if (!isMobile) {
+      window.addEventListener("mousemove", onMouseMove);
+    }
 
-    // Animation
-    let animationFrameId: number;
+    // Animation (30 FPS on mobile)
     const clock = new THREE.Clock();
+    let lastTime = 0;
 
-    const animate = () => {
-      animationFrameId = requestAnimationFrame(animate);
-      const elapsedTime = clock.getElapsedTime();
+    const animate = (time: number) => {
+      requestAnimationFrame(animate);
 
-      // Rotate particles
-      particlesMesh.rotation.y = elapsedTime * 0.05;
-      particlesMesh.rotation.x = Math.sin(elapsedTime * 0.1) * 0.2;
+      if (isMobile && time - lastTime < 1000 / 30) return;
+      lastTime = time;
 
-      // Animate meshes
-      meshes.forEach((mesh, index) => {
-        mesh.rotation.x = elapsedTime * 0.3 * (index + 1);
-        mesh.rotation.y = elapsedTime * 0.2 * (index + 1);
-        mesh.position.y = Math.sin(elapsedTime + index) * 0.5;
+      const t = clock.getElapsedTime();
+
+      particles.rotation.y = t * 0.03;
+
+      meshes.forEach((m, i) => {
+        m.rotation.x = t * 0.2 * (i + 1);
+        m.rotation.y = t * 0.15 * (i + 1);
       });
 
-      // Camera follows mouse
-      camera.position.x += (mouseX * 0.5 - camera.position.x) * 0.05;
-      camera.position.y += (mouseY * 0.5 - camera.position.y) * 0.05;
-      camera.lookAt(scene.position);
+      if (!isMobile) {
+        camera.position.x += (mouseX * 0.5 - camera.position.x) * 0.05;
+        camera.position.y += (mouseY * 0.5 - camera.position.y) * 0.05;
+        camera.lookAt(scene.position);
+      }
 
       renderer.render(scene, camera);
     };
 
-    animate();
+    animate(0);
 
-    // Handle resize
-    const handleResize = () => {
+    const onResize = () => {
       camera.aspect = window.innerWidth / window.innerHeight;
       camera.updateProjectionMatrix();
       renderer.setSize(window.innerWidth, window.innerHeight);
     };
 
-    window.addEventListener("resize", handleResize);
+    window.addEventListener("resize", onResize);
 
-    // Cleanup
     return () => {
-      window.removeEventListener("resize", handleResize);
-      window.removeEventListener("mousemove", handleMouseMove);
-      cancelAnimationFrame(animationFrameId);
+      window.removeEventListener("resize", onResize);
+      window.removeEventListener("mousemove", onMouseMove);
 
-      if (containerRef.current && renderer.domElement) {
-        containerRef.current.removeChild(renderer.domElement);
-      }
+      containerRef.current?.removeChild(renderer.domElement);
 
       renderer.dispose();
       particlesGeometry.dispose();
       particlesMaterial.dispose();
-      geometries.forEach((geo) => geo.dispose());
-      materials.forEach((mat) => mat.dispose());
+      geometries.forEach((g) => g.dispose());
+      material.dispose();
     };
   }, []);
 
@@ -173,7 +153,7 @@ export function ThreeBackground() {
     <div
       ref={containerRef}
       className="fixed inset-0 pointer-events-none z-0"
-      style={{ opacity: 0.4 }}
+      style={{ opacity: 0.35 }}
     />
   );
 }
