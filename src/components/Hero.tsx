@@ -5,9 +5,7 @@ import {
   Mail,
   Phone,
   Download,
-  ChevronDown,
   Sparkles,
-  Code,
 } from "lucide-react";
 import { useState, useEffect } from "react";
 

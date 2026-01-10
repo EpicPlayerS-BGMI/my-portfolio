@@ -6,7 +6,6 @@ import { Projects } from "./components/Projects";
 import { Skills } from "./components/Skills";
 import { ThreeBackground } from "./components/ThreeBackground";
 import { Contact } from "./components/Contact";
-import { CustomCursor } from "./components/CustomCursor";
 import SignatureCursor from "./components/SignatureCursor";
 
 export default function App() {
