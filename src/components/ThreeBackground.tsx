@@ -30,7 +30,9 @@ export function ThreeBackground() {
     });
 
     renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setPixelRatio(isMobile ? 1 : Math.min(window.devicePixelRatio, 1.5));
+    renderer.setPixelRatio(
+      isMobile ? 1 : Math.min(window.devicePixelRatio, 1.5)
+    );
     containerRef.current.appendChild(renderer.domElement);
 
     // Particles (reduce count on mobile)

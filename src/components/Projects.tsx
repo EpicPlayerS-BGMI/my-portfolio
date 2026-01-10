@@ -136,7 +136,7 @@ export function Projects() {
         </motion.div>
 
         {/* Swiper Container */}
-        <div className="relative px-12">
+        <div className="relative ">
           <Swiper
             modules={[Navigation, Pagination, Autoplay, EffectCoverflow]}
             effect="coverflow"
@@ -294,7 +294,7 @@ export function Projects() {
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
             onClick={() => swiperRef?.slidePrev()}
-            className="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-12 h-12 flex items-center justify-center bg-slate-800/80 backdrop-blur-sm border border-slate-700 hover:border-orange-400/50 rounded-full transition-all"
+            className="absolute -left-5 top-1/2 -translate-y-1/2 z-10 w-12 h-12 flex items-center justify-center bg-slate-800/80 backdrop-blur-sm border border-slate-700 hover:border-orange-400/50 rounded-full transition-all"
           >
             <ChevronLeft className="w-6 h-6 text-orange-400" />
           </motion.button>
@@ -303,7 +303,7 @@ export function Projects() {
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
             onClick={() => swiperRef?.slideNext()}
-            className="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-12 h-12 flex items-center justify-center bg-slate-800/80 backdrop-blur-sm border border-slate-700 hover:border-orange-400/50 rounded-full transition-all"
+            className="absolute -right-5 top-1/2 -translate-y-1/2 z-10 w-12 h-12 flex items-center justify-center bg-slate-800/80 backdrop-blur-sm border border-slate-700 hover:border-orange-400/50 rounded-full transition-all"
           >
             <ChevronRight className="w-6 h-6 text-orange-400" />
           </motion.button>
