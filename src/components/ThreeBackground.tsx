@@ -7,9 +7,11 @@ export function ThreeBackground() {
   useEffect(() => {
     if (!containerRef.current) return;
 
-    const isMobile =
-      window.innerWidth < 768 ||
-      /Android|iPhone|iPad/i.test(navigator.userAgent);
+    // const isMobile =
+    //   window.innerWidth < 768 ||
+    //   /Android|iPhone|iPad/i.test(navigator.userAgent);
+
+    const isMobile = window.matchMedia("(pointer: coarse)").matches;
 
     // Scene
     const scene = new THREE.Scene();
@@ -62,7 +64,7 @@ export function ThreeBackground() {
 
     // Geometries (lighter)
     const geometries = [
-      new THREE.TorusGeometry(0.7, 0.18, 12, isMobile ? 24 : 48),
+      new THREE.TorusGeometry(0.7, 0.18, 8, isMobile ? 16 : 48),
       new THREE.OctahedronGeometry(0.5, 0),
       new THREE.IcosahedronGeometry(0.5, 0),
     ];
@@ -122,6 +124,11 @@ export function ThreeBackground() {
         camera.position.x += (mouseX * 0.5 - camera.position.x) * 0.05;
         camera.position.y += (mouseY * 0.5 - camera.position.y) * 0.05;
         camera.lookAt(scene.position);
+      }
+
+      if (isMobile) {
+        camera.position.set(0, 0, 5);
+        camera.lookAt(0, 0, 0);
       }
 
       renderer.render(scene, camera);

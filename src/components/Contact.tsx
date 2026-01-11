@@ -114,13 +114,13 @@ export function Contact() {
           </p>
         </motion.div>
 
-        <div className="grid lg:grid-cols-2 gap-12">
+        <div className="grid lg:grid-cols-2 gap-8 md:gap-12">
           {/* Contact Info */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="space-y-8"
+            className="space-y-6 md:space-y-8"
           >
             {/* Contact methods */}
             <div className="space-y-4">
@@ -135,20 +135,26 @@ export function Contact() {
                     viewport={{ once: true }}
                     transition={{ delay: index * 0.1 }}
                     whileHover={{ scale: 1.02, x: 10 }}
-                    className="group flex items-center gap-4 p-6 bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-xl border border-slate-700 hover:border-orange-400/50 rounded-2xl transition-all duration-300"
+                    /* Adjusted padding for small screens (p-4 instead of p-6) */
+                    className="group flex items-center gap-3 sm:gap-4 p-4 sm:p-6 bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-xl border border-slate-700 hover:border-orange-400/50 rounded-2xl transition-all duration-300"
                   >
+                    {/* Adjusted icon box size for small screens */}
                     <div
-                      className={`w-14 h-14 rounded-xl bg-gradient-to-br ${method.gradient} flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform`}
+                      className={`w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-gradient-to-br ${method.gradient} flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform`}
                     >
-                      <Icon className="w-6 h-6 text-white" />
+                      <Icon className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
                     </div>
-                    <div className="flex-grow">
-                      <p className="text-sm text-slate-400 mb-1">
+                    <div className="flex-grow min-w-0">
+                      {" "}
+                      {/* added min-w-0 to prevent text push */}
+                      <p className="text-xs sm:text-sm text-slate-400 mb-0.5 sm:mb-1 truncate">
                         {method.label}
                       </p>
-                      <p className="text-white font-medium">{method.value}</p>
+                      <p className="text-sm sm:text-base text-white font-medium truncate">
+                        {method.value}
+                      </p>
                     </div>
-                    <Send className="w-5 h-5 text-slate-600 group-hover:text-orange-400 group-hover:translate-x-1 transition-all" />
+                    <Send className="w-4 h-4 sm:w-5 sm:h-5 text-slate-600 group-hover:text-orange-400 group-hover:translate-x-1 transition-all flex-shrink-0" />
                   </motion.a>
                 );
               })}
@@ -160,7 +166,8 @@ export function Contact() {
                 <Sparkles className="w-4 h-4 text-yellow-400" />
                 <span className="font-mono text-sm">Find me on</span>
               </p>
-              <div className="flex gap-4">
+              {/* flex-wrap added to ensure icons don't go off-screen */}
+              <div className="flex flex-wrap gap-3 sm:gap-4">
                 {socialLinks.map((social, index) => {
                   const Icon = social.icon;
                   return (
@@ -176,8 +183,8 @@ export function Contact() {
                       <div
                         className={`absolute inset-0 bg-gradient-to-r ${social.gradient} rounded-xl blur-lg opacity-0 group-hover:opacity-50 transition-opacity`}
                       ></div>
-                      <div className="relative w-14 h-14 flex items-center justify-center bg-slate-800/50 border border-slate-700 hover:border-orange-400/50 rounded-xl transition-all">
-                        <Icon className="w-6 h-6 text-slate-400 group-hover:text-white transition-colors" />
+                      <div className="relative w-12 h-12 sm:w-14 sm:h-14 flex items-center justify-center bg-slate-800/50 border border-slate-700 hover:border-orange-400/50 rounded-xl transition-all">
+                        <Icon className="w-5 h-5 sm:w-6 sm:h-6 text-slate-400 group-hover:text-white transition-colors" />
                       </div>
                     </motion.a>
                   );
@@ -190,21 +197,21 @@ export function Contact() {
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
-              className="p-6 bg-gradient-to-br from-green-500/10 to-orange-500/10 border border-green-500/30 rounded-2xl"
+              className="p-4 sm:p-6 bg-gradient-to-br from-green-500/10 to-orange-500/10 border border-green-500/30 rounded-2xl"
             >
-              <div className="flex items-start gap-4">
+              <div className="flex items-start gap-3 sm:gap-4">
                 <motion.div
                   animate={{ scale: [1, 1.2, 1] }}
                   transition={{ duration: 2, repeat: Infinity }}
-                  className="w-4 h-4 rounded-full bg-green-400 flex-shrink-0 mt-1"
+                  className="w-3 h-3 sm:w-4 sm:h-4 rounded-full bg-green-400 flex-shrink-0 mt-1"
                 ></motion.div>
                 <div>
-                  <p className="text-white font-semibold mb-1">
+                  <p className="text-white text-sm sm:text-base font-semibold mb-1">
                     Available for Opportunities
                   </p>
-                  <p className="text-sm text-slate-400">
+                  <p className="text-xs sm:text-sm text-slate-400 leading-relaxed">
                     Currently open to full-time positions and freelance
-                    projects. Let's build something amazing together!
+                    projects. Let's build something amazing!
                   </p>
                 </div>
               </div>
@@ -216,17 +223,19 @@ export function Contact() {
             initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
+            className="mt-8 lg:mt-0"
           >
-            <div className="bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-xl border border-slate-700 rounded-2xl p-8">
-              <h3 className="text-2xl font-bold text-white mb-6">
+            {/* Reduced padding from p-8 to p-5 for mobile */}
+            <div className="bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-xl border border-slate-700 rounded-2xl p-5 sm:p-8">
+              <h3 className="text-xl sm:text-2xl font-bold text-white mb-6">
                 Send a Message
               </h3>
 
-              <form onSubmit={handleSubmit} className="space-y-6">
+              <form onSubmit={handleSubmit} className="space-y-5 sm:space-y-6">
                 <div>
                   <label
                     htmlFor="name"
-                    className="block text-sm font-medium text-slate-300 mb-2"
+                    className="block text-xs sm:text-sm font-medium text-slate-300 mb-2"
                   >
                     Your Name
                   </label>
@@ -237,7 +246,7 @@ export function Contact() {
                     onChange={(e) =>
                       setFormData({ ...formData, name: e.target.value })
                     }
-                    className="w-full px-4 py-3 bg-slate-900/50 border border-slate-700 focus:border-orange-400/50 rounded-xl text-white placeholder-slate-500 outline-none transition-all"
+                    className="w-full px-4 py-3 bg-slate-900/50 border border-slate-700 focus:border-orange-400/50 rounded-xl text-white text-sm placeholder-slate-500 outline-none transition-all"
                     placeholder="John Doe"
                     required
                   />
@@ -246,7 +255,7 @@ export function Contact() {
                 <div>
                   <label
                     htmlFor="email"
-                    className="block text-sm font-medium text-slate-300 mb-2"
+                    className="block text-xs sm:text-sm font-medium text-slate-300 mb-2"
                   >
                     Your Email
                   </label>
@@ -257,7 +266,7 @@ export function Contact() {
                     onChange={(e) =>
                       setFormData({ ...formData, email: e.target.value })
                     }
-                    className="w-full px-4 py-3 bg-slate-900/50 border border-slate-700 focus:border-orange-400/50 rounded-xl text-white placeholder-slate-500 outline-none transition-all"
+                    className="w-full px-4 py-3 bg-slate-900/50 border border-slate-700 focus:border-orange-400/50 rounded-xl text-white text-sm placeholder-slate-500 outline-none transition-all"
                     placeholder="john@example.com"
                     required
                   />
@@ -266,7 +275,7 @@ export function Contact() {
                 <div>
                   <label
                     htmlFor="message"
-                    className="block text-sm font-medium text-slate-300 mb-2"
+                    className="block text-xs sm:text-sm font-medium text-slate-300 mb-2"
                   >
                     Message
                   </label>
@@ -276,8 +285,8 @@ export function Contact() {
                     onChange={(e) =>
                       setFormData({ ...formData, message: e.target.value })
                     }
-                    rows={5}
-                    className="w-full px-4 py-3 bg-slate-900/50 border border-slate-700 focus:border-orange-400/50 rounded-xl text-white placeholder-slate-500 outline-none resize-none transition-all"
+                    rows={4}
+                    className="w-full px-4 py-3 bg-slate-900/50 border border-slate-700 focus:border-orange-400/50 rounded-xl text-white text-sm placeholder-slate-500 outline-none resize-none transition-all"
                     placeholder="Your message here..."
                     required
                   />
@@ -285,12 +294,12 @@ export function Contact() {
 
                 <motion.button
                   type="submit"
-                  whileHover={{ scale: 1.02 }}
+                  whileHover={{ scale: 1.01 }}
                   whileTap={{ scale: 0.98 }}
-                  className="w-full px-8 py-4 bg-gradient-to-r from-orange-500 to-amber-500 rounded-xl text-white font-medium hover:shadow-lg hover:shadow-orange-500/50 transition-all flex items-center justify-center gap-2 group"
+                  className="w-full px-6 py-3.5 sm:py-4 bg-gradient-to-r from-orange-500 to-amber-500 rounded-xl text-white font-medium text-sm sm:text-base hover:shadow-lg hover:shadow-orange-500/50 transition-all flex items-center justify-center gap-2 group"
                 >
                   <span>Send Message</span>
-                  <Send className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                  <Send className="w-4 h-4 sm:w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </motion.button>
               </form>
             </div>

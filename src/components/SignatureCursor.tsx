@@ -37,7 +37,7 @@ const SignatureCursor = (): JSX.Element | null => {
 
       // Calculate speed to determine thickness (faster = thinner line)
       const speed = Math.sqrt(dx * dx + dy * dy);
-      const targetSize = Math.max(1, 6 - speed * 0.1);
+      const targetSize = Math.max(0.55, 6 - speed * 0.1);
 
       mouseRef.current = { x: e.clientX, y: e.clientY };
 

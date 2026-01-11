@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, lazy, Suspense } from "react";
 import { Navigation } from "./components/Navigation";
 import { Hero } from "./components/Hero";
 import { Experience } from "./components/Experience";
@@ -6,10 +6,13 @@ import { Projects } from "./components/Projects";
 import { Skills } from "./components/Skills";
 import { ThreeBackground } from "./components/ThreeBackground";
 import { Contact } from "./components/Contact";
-import SignatureCursor from "./components/SignatureCursor";
+const SignatureCursor = lazy(() => import("./components/SignatureCursor"));
 
 export default function App() {
   const [activeSection, setActiveSection] = useState("home");
+  const isTouchDevice =
+    typeof window !== "undefined" &&
+    window.matchMedia("(pointer: coarse)").matches;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -37,8 +40,12 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-[#0a0a0a] text-white overflow-x-hidden">
-      {/* <CustomCursor /> */}
-      <SignatureCursor />
+      {!isTouchDevice && (
+        <Suspense fallback={null}>
+          <SignatureCursor />
+        </Suspense>
+      )}
+
       <ThreeBackground />
       <Navigation activeSection={activeSection} />
 
