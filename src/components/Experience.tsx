@@ -1,5 +1,5 @@
 import { Briefcase, Calendar, MapPin, ArrowRight } from "lucide-react";
-import { motion } from "framer-motion"; // motion/react se switch karna behtar hai performance ke liye
+import { motion, type Variants } from "framer-motion"; // motion/react se switch karna behtar hai performance ke liye
 
 /* =======================
    DATA
@@ -37,7 +37,7 @@ const experiences = [
 /* =======================
    VARIANTS (Optimized)
 ======================= */
-const cardVariants = {
+const cardVariants: Variants = {
   hiddenLeft: { opacity: 0, x: -30, y: 20 },
   hiddenRight: { opacity: 0, x: 30, y: 20 },
   visible: {
@@ -48,7 +48,6 @@ const cardVariants = {
       type: "spring",
       duration: 0.8,
       bounce: 0.3,
-      // hardware acceleration
       velocity: 2,
     },
   },
