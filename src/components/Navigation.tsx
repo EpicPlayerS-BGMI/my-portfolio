@@ -32,7 +32,7 @@ export function Navigation({ activeSection }: NavigationProps) {
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ type: "spring", stiffness: 100, damping: 20 }}
-        className="fixed top-0 left-0 right-0 z-50 hidden md:block"
+        className="sticky top-0 left-0 right-0 z-50 hidden md:block"
       >
         <div className="max-w-7xl mx-auto px-6 py-6">
           <div className="flex justify-between items-center">
@@ -95,7 +95,7 @@ export function Navigation({ activeSection }: NavigationProps) {
       <motion.div
         initial={{ y: -100 }}
         animate={{ y: 0 }}
-        className="fixed top-0 left-0 right-0 z-50 md:hidden"
+        className="sticky top-0 left-0 right-0 z-50 md:hidden"
       >
         <div className="flex justify-between items-center px-6 py-4 bg-slate-900/80 backdrop-blur-xl border-b border-slate-800">
           <div className="text-xl font-bold bg-gradient-to-r from-orange-500 to-amber-500 bg-clip-text text-transparent">

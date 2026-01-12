@@ -11,6 +11,9 @@ import { useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Autoplay, FreeMode } from "swiper/modules";
 import type { Swiper as SwiperType } from "swiper";
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
 
 const projects = [
   {
@@ -20,23 +23,25 @@ const projects = [
       "A full-stack QR-based digital menu platform that revolutionizes shop management.",
     tech: ["MERN Stack", "QR Codes", "JWT"],
     link: "https://barcoder1.vercel.app",
-    github: "#",
+    github: "https://github.com/ShivamAgrawal04/barcoder1",
     gradient: "from-orange-500/20 to-amber-500/20",
     accent: "text-orange-400",
     border: "group-hover:border-orange-500/50",
     icon: "🍽️",
   },
   {
-    title: "Web Scraping Tool",
-    subtitle: "Data Automation Engine",
+    title: "Epic TV Streams",
+    subtitle: "Online TV Streaming Service",
     description:
-      "Intelligent automation tool for extracting data from OEM websites with real-time updates.",
-    tech: ["Node.js", "Playwright", "MongoDB"],
+      "An online TV streaming platform offering smooth access to entertainment content with optimized performance.",
+    tech: ["HTML", "CSS", "Bootstrap", "Swiper"],
+
+    link: "https://epictvstreams.com/",
     github: "https://github.com/ShivamAgrawal04",
     gradient: "from-blue-500/20 to-cyan-500/20",
     accent: "text-blue-400",
     border: "group-hover:border-blue-500/50",
-    icon: "🤖",
+    icon: "📺",
   },
   {
     title: "Bulk Email Utility",
@@ -44,11 +49,79 @@ const projects = [
     description:
       "Advanced Node.js utility for mass mailing with multi-account support and privacy.",
     tech: ["Nodemailer", "Express", "Node.js"],
+    link: "#",
     github: "https://github.com/ShivamAgrawal04",
     gradient: "from-purple-500/20 to-pink-500/20",
     accent: "text-purple-400",
     border: "group-hover:border-purple-500/50",
     icon: "📧",
+  },
+  {
+    title: "Stream Live Joy",
+    subtitle: "Live Streaming Platform",
+    description:
+      "A live streaming website focused on seamless video playback, user engagement, and scalable content delivery.",
+    tech: ["HTML", "Bootstrap", "Swiper"],
+    link: "https://streamlivejoy.com/",
+    github: "https://github.com/ShivamAgrawal04",
+    gradient: "from-orange-500/20 to-amber-500/20",
+    accent: "text-orange-400",
+    border: "group-hover:border-orange-500/50",
+    icon: "🎥",
+  },
+
+  {
+    title: "Web Scraping Tool",
+    subtitle: "Data Automation Engine",
+    description:
+      "Intelligent automation tool for extracting data from OEM websites with real-time updates.",
+    tech: ["Node.js", "Playwright", "MongoDB"],
+    link: "#",
+    github: "https://github.com/ShivamAgrawal04",
+    gradient: "from-blue-500/20 to-cyan-500/20",
+    accent: "text-blue-400",
+    border: "group-hover:border-blue-500/50",
+    icon: "🤖",
+  },
+
+  {
+    title: "Future Corp Promotion",
+    subtitle: "Email Marketing Platform",
+    description:
+      "A promotional email marketing system designed for bulk campaigns, automation, and efficient delivery.",
+    tech: ["WordPress", "Elementor", "Plugins"],
+    link: "http://promotion.future-corp.com/",
+    github: "https://github.com/ShivamAgrawal04",
+    gradient: "from-purple-500/20 to-pink-500/20",
+    accent: "text-purple-400",
+    border: "group-hover:border-purple-500/50",
+    icon: "📧",
+  },
+  {
+    title: "MapleFlix",
+    subtitle: "Online Movie Streaming Platform",
+    description:
+      "A movie streaming platform providing smooth playback, responsive design, and optimized media delivery.",
+    tech: ["HTML", "CSS", "Bootstrap"],
+    link: "https://watchmapleflix.biz/",
+    github: "https://github.com/ShivamAgrawal04",
+    gradient: "from-orange-500/20 to-amber-500/20",
+    accent: "text-orange-400",
+    border: "group-hover:border-orange-500/50",
+    icon: "🍿",
+  },
+  {
+    title: "Winchaster",
+    subtitle: "Digital Media Platform",
+    description:
+      "A digital media website built to showcase content with fast loading, modern UI, and scalable backend support.",
+    tech: ["HTML", "CSS", "Bootstrap"],
+    link: "https://winchaster.com/",
+    github: "https://github.com/ShivamAgrawal04",
+    gradient: "from-blue-500/20 to-cyan-500/20",
+    accent: "text-blue-400",
+    border: "group-hover:border-blue-500/50",
+    icon: "🌐",
   },
 ];
 
@@ -184,13 +257,44 @@ export function Projects() {
                         ))}
                       </div>
 
-                      <button className="flex items-center gap-2 text-white font-semibold text-sm group/btn">
-                        View Project
+                      <a
+                        href={project.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={`
+    relative inline-flex items-center gap-2
+    px-5 py-3 rounded-full
+    text-sm font-semibold text-white
+    border border-slate-700
+    bg-slate-800/60 backdrop-blur-md
+    transition-all duration-300
+    hover:shadow-lg
+    ${project.border}
+    group/btn
+  `}
+                      >
+                        <span className="relative z-10">View Project</span>
+
                         <ArrowUpRight
                           size={16}
-                          className="group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1 transition-transform"
+                          className="
+      relative z-10
+      transition-transform duration-300
+      group-hover/btn:translate-x-1
+      group-hover/btn:-translate-y-1
+    "
                         />
-                      </button>
+
+                        {/* Dynamic gradient glow */}
+                        <span
+                          className={`
+      absolute inset-0 rounded-full
+      bg-gradient-to-r ${project.gradient}
+      opacity-0 group-hover/btn:opacity-100
+      transition-opacity duration-300
+    `}
+                        />
+                      </a>
                     </div>
                   </div>
                 </div>

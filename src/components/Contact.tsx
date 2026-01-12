@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import { useState, useRef } from "react";
 import emailjs from "@emailjs/browser";
+import toast from "react-hot-toast";
 
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 20 },
@@ -59,9 +60,12 @@ export function Contact() {
       .then(
         () => {
           console.log("SUCCESS!");
+          setFormData({ name: "", subject: "", email: "", message: "" });
+          toast.success("Message sent successfully!");
         },
         (error) => {
           console.log("FAILED...", error.text);
+          toast.success("Something went wrong. Please try again.");
         }
       );
   };
@@ -105,9 +109,6 @@ export function Contact() {
 
   return (
     <section className="relative py-12 pb-10 px-4 overflow-hidden">
-      {/* =======================
-          Background (Optimized)
-      ======================= */}
       <div className="absolute inset-0">
         <motion.div
           animate={{ opacity: [0.15, 0.25, 0.15] }}

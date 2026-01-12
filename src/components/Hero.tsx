@@ -49,7 +49,11 @@ export function Hero() {
   }, [text, isDeleting, loopNum, typingSpeed]);
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center px-4 overflow-hidden">
+    <section
+      className="relative min-h-[calc(100vh-4rem)]
+        md:min-h-[calc(100vh-8rem)]
+        lg:min-h-[calc(100vh-10rem)] flex items-center justify-center py-6 md:py-0 px-4 overflow-hidden"
+    >
       {/* Animated gradient orbs */}
       {/* <div className="absolute inset-0">
         <motion.div 

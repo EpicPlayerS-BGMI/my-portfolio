@@ -6,6 +6,8 @@ import { Projects } from "./components/Projects";
 import { Skills } from "./components/Skills";
 import { ThreeBackground } from "./components/ThreeBackground";
 import { Contact } from "./components/Contact";
+import { Toaster } from "react-hot-toast";
+
 const SignatureCursor = lazy(() => import("./components/SignatureCursor"));
 
 export default function App() {
@@ -39,7 +41,39 @@ export default function App() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#0a0a0a] text-white overflow-x-hidden">
+    <div className="min-h-screen bg-[#0a0a0a] text-white ">
+      <Toaster
+        position="top-right"
+        reverseOrder={false}
+        toastOptions={{
+          duration: 3000,
+          style: {
+            background: "rgba(15, 23, 42, 0.9)", // slate-900
+            color: "#fff",
+            border: "1px solid rgba(251, 146, 60, 0.4)", // orange-400
+            backdropFilter: "blur(10px)",
+            boxShadow: "0 10px 25px rgba(251, 146, 60, 0.25)",
+            borderRadius: "14px",
+            padding: "14px 16px",
+            fontSize: "14px",
+          },
+
+          success: {
+            iconTheme: {
+              primary: "#fb923c", // orange-400
+              secondary: "#0f172a",
+            },
+          },
+
+          error: {
+            iconTheme: {
+              primary: "#ef4444",
+              secondary: "#0f172a",
+            },
+          },
+        }}
+      />
+
       {!isTouchDevice && (
         <Suspense fallback={null}>
           <SignatureCursor />
