@@ -162,7 +162,7 @@ export function Hero() {
               </a>
 
               <a
-                href="/my_resume.pdf"
+                href="/shivam_resume.pdf"
                 download
                 className="group px-8 py-4 bg-slate-800/50 border border-slate-700 hover:border-orange-400/50 rounded-full transition-all duration-300"
               >
